@@ -167,6 +167,14 @@ pycodestyle = ">=2.9.0,<2.10.0"
 pyflakes = ">=2.5.0,<2.6.0"
 
 [[package]]
+name = "h11"
+version = "0.13.0"
+description = "A pure-Python, bring-your-own-I/O implementation of HTTP/1.1"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[[package]]
 name = "idna"
 version = "3.3"
 description = "Internationalized Domain Names in Applications (IDNA)"
@@ -420,6 +428,21 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "uvicorn"
+version = "0.18.2"
+description = "The lightning-fast ASGI server."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+click = ">=7.0"
+h11 = ">=0.8"
+
+[package.extras]
+standard = ["websockets (>=10.0)", "httptools (>=0.4.0)", "watchfiles (>=0.13)", "python-dotenv (>=0.13)", "PyYAML (>=5.1)", "uvloop (>=0.14.0,!=0.15.0,!=0.15.1)", "colorama (>=0.4)"]
+
+[[package]]
 name = "wcwidth"
 version = "0.2.5"
 description = "Measures the displayed width of unicode strings in a terminal"
@@ -430,7 +453,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "ba92855d62dec3a16e36764760f5f3ffbd18a3ab4a46f0d5286dae1d6af69520"
+content-hash = "12da96acb7d3918e8c5cf8b869afbe43b0997c8d3520492525b0c45fa181cb1c"
 
 [metadata.files]
 aerich = []
@@ -445,6 +468,7 @@ colorama = []
 dictdiffer = []
 fastapi = []
 flake8 = []
+h11 = []
 idna = []
 iso8601 = []
 isort = []
@@ -469,4 +493,5 @@ tomli = []
 tomlkit = []
 tortoise-orm = []
 typing-extensions = []
+uvicorn = []
 wcwidth = []
