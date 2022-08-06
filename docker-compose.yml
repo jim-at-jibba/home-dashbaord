@@ -16,11 +16,12 @@ services:
     depends_on:   # new
       - web-db
 
-  # new
   web-db:
     build:
       context: ./home_dash_api/db
       dockerfile: Dockerfile
+    ports:
+      - "5432:5432"
     expose:
       - 5432
     environment:
