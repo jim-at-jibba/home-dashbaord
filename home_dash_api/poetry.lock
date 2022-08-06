@@ -103,6 +103,25 @@ jupyter = ["ipython (>=7.8.0)", "tokenize-rt (>=3.2.0)"]
 uvloop = ["uvloop (>=0.15.2)"]
 
 [[package]]
+name = "certifi"
+version = "2022.6.15"
+description = "Python package for providing Mozilla's CA Bundle."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[[package]]
+name = "charset-normalizer"
+version = "2.1.0"
+description = "The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet."
+category = "main"
+optional = false
+python-versions = ">=3.6.0"
+
+[package.extras]
+unicode_backport = ["unicodedata2"]
+
+[[package]]
 name = "click"
 version = "8.1.3"
 description = "Composable command line interface toolkit"
@@ -183,6 +202,14 @@ optional = false
 python-versions = ">=3.5"
 
 [[package]]
+name = "iniconfig"
+version = "1.1.1"
+description = "iniconfig: brain-dead simple config-ini parsing"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
 name = "iso8601"
 version = "1.0.2"
 description = "Simple module to parse ISO 8601 dates"
@@ -211,14 +238,6 @@ description = "McCabe checker, plugin for flake8"
 category = "main"
 optional = false
 python-versions = ">=3.6"
-
-[[package]]
-name = "more-itertools"
-version = "8.13.0"
-description = "More routines for operating on iterables, beyond itertools"
-category = "dev"
-optional = false
-python-versions = ">=3.5"
 
 [[package]]
 name = "mypy-extensions"
@@ -261,14 +280,15 @@ test = ["appdirs (==1.4.4)", "pytest-cov (>=2.7)", "pytest-mock (>=3.6)", "pytes
 
 [[package]]
 name = "pluggy"
-version = "0.13.1"
+version = "1.0.0"
 description = "plugin and hook calling mechanisms for python"
 category = "dev"
 optional = false
-python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+python-versions = ">=3.6"
 
 [package.extras]
 dev = ["pre-commit", "tox"]
+testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
 name = "py"
@@ -330,25 +350,24 @@ python-versions = ">=3.7,<4.0"
 
 [[package]]
 name = "pytest"
-version = "5.4.3"
+version = "7.1.2"
 description = "pytest: simple powerful testing with Python"
 category = "dev"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.7"
 
 [package.dependencies]
 atomicwrites = {version = ">=1.0", markers = "sys_platform == \"win32\""}
-attrs = ">=17.4.0"
+attrs = ">=19.2.0"
 colorama = {version = "*", markers = "sys_platform == \"win32\""}
-more-itertools = ">=4.0.0"
+iniconfig = "*"
 packaging = "*"
-pluggy = ">=0.12,<1.0"
-py = ">=1.5.0"
-wcwidth = "*"
+pluggy = ">=0.12,<2.0"
+py = ">=1.8.2"
+tomli = ">=1.0.0"
 
 [package.extras]
-checkqa-mypy = ["mypy (==v0.761)"]
-testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "requests", "xmlschema"]
+testing = ["argcomplete", "hypothesis (>=3.56)", "mock", "nose", "pygments (>=2.7.2)", "requests", "xmlschema"]
 
 [[package]]
 name = "pytz"
@@ -357,6 +376,24 @@ description = "World timezone definitions, modern and historical"
 category = "main"
 optional = false
 python-versions = "*"
+
+[[package]]
+name = "requests"
+version = "2.28.1"
+description = "Python HTTP for Humans."
+category = "main"
+optional = false
+python-versions = ">=3.7, <4"
+
+[package.dependencies]
+certifi = ">=2017.4.17"
+charset-normalizer = ">=2,<3"
+idna = ">=2.5,<4"
+urllib3 = ">=1.21.1,<1.27"
+
+[package.extras]
+socks = ["PySocks (>=1.5.6,!=1.5.7)"]
+use_chardet_on_py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "sniffio"
@@ -428,6 +465,19 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "urllib3"
+version = "1.26.11"
+description = "HTTP library with thread-safe connection pooling, file post, and more."
+category = "main"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*, <4"
+
+[package.extras]
+brotli = ["brotlicffi (>=0.8.0)", "brotli (>=1.0.9)", "brotlipy (>=0.6.0)"]
+secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "certifi", "ipaddress"]
+socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
+
+[[package]]
 name = "uvicorn"
 version = "0.18.2"
 description = "The lightning-fast ASGI server."
@@ -442,18 +492,10 @@ h11 = ">=0.8"
 [package.extras]
 standard = ["websockets (>=10.0)", "httptools (>=0.4.0)", "watchfiles (>=0.13)", "python-dotenv (>=0.13)", "PyYAML (>=5.1)", "uvloop (>=0.14.0,!=0.15.0,!=0.15.1)", "colorama (>=0.4)"]
 
-[[package]]
-name = "wcwidth"
-version = "0.2.5"
-description = "Measures the displayed width of unicode strings in a terminal"
-category = "dev"
-optional = false
-python-versions = "*"
-
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "12da96acb7d3918e8c5cf8b869afbe43b0997c8d3520492525b0c45fa181cb1c"
+content-hash = "05adca616256d754add5ebd207a1abaf822c694cfa9f9c078b6ed91958b1a37f"
 
 [metadata.files]
 aerich = []
@@ -463,6 +505,8 @@ asyncpg = []
 atomicwrites = []
 attrs = []
 black = []
+certifi = []
+charset-normalizer = []
 click = []
 colorama = []
 dictdiffer = []
@@ -470,10 +514,10 @@ fastapi = []
 flake8 = []
 h11 = []
 idna = []
+iniconfig = []
 iso8601 = []
 isort = []
 mccabe = []
-more-itertools = []
 mypy-extensions = []
 packaging = []
 pathspec = []
@@ -487,11 +531,12 @@ pyparsing = []
 pypika-tortoise = []
 pytest = []
 pytz = []
+requests = []
 sniffio = []
 starlette = []
 tomli = []
 tomlkit = []
 tortoise-orm = []
 typing-extensions = []
+urllib3 = []
 uvicorn = []
-wcwidth = []
