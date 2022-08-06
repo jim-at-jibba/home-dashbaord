@@ -10,6 +10,9 @@ isort = "^5.10.1"
 black = "^22.6.0"
 flake8 = "^5.0.4"
 fastapi = "^0.79.0"
+tortoise-orm = "^0.19.2"
+asyncpg = "^0.26.0"
+aerich = "^0.6.3"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
