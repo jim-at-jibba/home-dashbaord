@@ -1,4 +1,5 @@
 from tortoise import fields, models
+from tortoise.contrib.pydantic import pydantic_model_creator
 
 
 class User(models.Model):
@@ -14,4 +15,7 @@ class User(models.Model):
         table = "users"
 
     def __str__(self):
-        return self.name
+        return self.email
+
+
+# UserSchema = pydantic_model_creator(User)
