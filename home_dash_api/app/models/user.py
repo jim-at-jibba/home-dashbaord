@@ -1,5 +1,6 @@
 from tortoise import fields, models
 from tortoise.contrib.pydantic import pydantic_model_creator
+import passlib.hash as hash
 
 
 class User(models.Model):
@@ -16,6 +17,9 @@ class User(models.Model):
 
     def __str__(self):
         return self.email
+
+    def verify_password(self, password: str):
+        return hash.bcrypt.verify(password, self.password)
 
 
 # UserSchema = pydantic_model_creator(User)
