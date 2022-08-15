@@ -1,24 +1,23 @@
 import os
 
-from app.config import Settings, get_settings
-from fastapi import Depends, FastAPI
+from app.api import ping
+from fastapi import FastAPI
 from tortoise.contrib.fastapi import register_tortoise
 
-app = FastAPI()
 
-register_tortoise(
-    app,
-    db_url=os.environ.get("DATABASE_URL"),
-    modules={"models": ["app.models.user"]},
-    generate_schemas=False,
-    add_exception_handlers=True,
-)
+def create_application():
+    application = FastAPI()
+
+    register_tortoise(
+        application,
+        db_url=os.environ.get("DATABASE_URL"),
+        modules={"models": ["app.models.user"]},
+        generate_schemas=False,
+        add_exception_handlers=True,
+    )
+
+    application.include_router(ping.router)
+    return application
 
 
-@app.get("/ping")
-async def ping(settings: Settings = Depends(get_settings)):
-    return {
-        "ping": "pong",
-        "environment": settings.enviroment,
-        "testing": settings.testing,
-    }
+app = create_application()
