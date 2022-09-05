@@ -1,4 +1,5 @@
 from tortoise import fields, models
+from app.models.user import User
 
 class Recipe(models.Model):
     id = fields.UUIDField(pk=True)
@@ -9,6 +10,9 @@ class Recipe(models.Model):
     prep_time = fields.IntField()
     servings = fields.IntField()
     notes = fields.TextField()
+    creator: fields.ForeignKeyRelation["User"] = fields.ForeignKeyField(
+        "models.User", related_name="recipes"
+    )
     created_at = fields.DatetimeField(auto_now_add=True)
     updated_at = fields.DatetimeField(auto_now=True)
 
