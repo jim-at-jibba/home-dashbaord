@@ -48,7 +48,6 @@ async def create_recipe_ingredient(
 
 async def create_ingredient(ingredient_name: str) -> Ingredient:
     db_ingredient = await Ingredient.filter(ingredient_name=ingredient_name).first()
-    print(db_ingredient)
     if not db_ingredient:
         ingredient = Ingredient(
             ingredient_name=ingredient_name,

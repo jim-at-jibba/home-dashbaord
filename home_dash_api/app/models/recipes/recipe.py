@@ -1,5 +1,7 @@
-from tortoise import fields, models
+from app.models.recipes.category import Category
 from app.models.user import User
+from tortoise import fields, models
+
 
 class Recipe(models.Model):
     id = fields.UUIDField(pk=True)
@@ -10,6 +12,7 @@ class Recipe(models.Model):
     prep_time = fields.IntField()
     servings = fields.IntField()
     notes = fields.TextField()
+    categories: fields.ManyToManyRelation[Category]
     creator: fields.ForeignKeyRelation["User"] = fields.ForeignKeyField(
         "models.User", related_name="recipes"
     )
