@@ -1,15 +1,10 @@
+from app.models.recipes.category import Category
 from app.models.recipes.ingredient import Ingredient
 from app.models.recipes.measurement import Measurement
 from app.models.recipes.measurement_qty import MeasurementQty
 from app.models.recipes.recipe import Recipe
 from app.models.recipes.recipe_ingredients import RecipeIngredient
-from app.schemas.recipes import (
-    CreateRecipe,
-    IngredientSchema,
-    MeasurementQtySchema,
-    MeasurementSchema,
-    RecipeSchema,
-)
+from app.schemas.recipes import CreateRecipe
 from app.schemas.user import UserSchema
 
 
@@ -80,8 +75,28 @@ async def create_measurement_qty(mq: str) -> MeasurementQty:
     return db_measurement_qty
 
 
+async def create_category(category_name: str) -> Category:
+    db_category = await Category.filter(category_name=category_name).first()
+    if not db_category:
+        category = Category(
+            category_name=category_name,
+        )
+
+        await category.save()
+        return category
+
+    return db_category
+
+
 async def create_recipe_transaction(recipe: CreateRecipe, user: UserSchema):
     db_recipe = await create_recipe(recipe, user)
+    cats = []
+    for category in recipe.categories:
+        cat = await create_category(category.category_name)
+        cats.append(cat)
+
+    await db_recipe.categories.add(*cats)
+
     for ingredient in recipe.ingredients:
         db_ingredient = await create_ingredient(
             ingredient_name=ingredient.ingredient_name

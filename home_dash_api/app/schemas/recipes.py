@@ -5,6 +5,23 @@ from app.schemas.user import UserSchema
 from pydantic.main import BaseModel
 
 
+class CategoryBase(BaseModel):
+    category_name: str
+
+
+class CategoryCreate(CategoryBase):
+    pass
+
+
+class CategorySchema(CategoryBase):
+    id: UUID
+    created_at: dt.datetime
+    updated_at: dt.datetime
+
+    class Config:
+        orm_mode = True
+
+
 class IngredientBase(BaseModel):
     ingredient_name: str
 
@@ -69,6 +86,7 @@ class RecipeBase(BaseModel):
 
 class CreateRecipe(RecipeBase):
     ingredients: list[IngredientCreate]
+    categories: list[CategoryCreate]
 
 
 class RecipeSchema(RecipeBase):
