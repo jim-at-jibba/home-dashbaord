@@ -1,6 +1,6 @@
 import logging
 
-from app.api import ping, user
+from app.api import ping, recipes, user
 from app.db import init_db
 from fastapi import FastAPI
 
@@ -10,7 +10,8 @@ log = logging.getLogger("uvicorn")
 def create_application():
     application = FastAPI()
     application.include_router(ping.router)
-    application.include_router(user.router)
+    application.include_router(user.user_router)
+    application.include_router(recipes.recipe_router)
 
     return application
 

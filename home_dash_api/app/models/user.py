@@ -1,6 +1,6 @@
+import passlib.hash as hash
 from tortoise import fields, models
 from tortoise.contrib.pydantic import pydantic_model_creator
-import passlib.hash as hash
 
 
 class User(models.Model):

@@ -1,13 +1,18 @@
-from app.schemas.user import UserSchema, UserCreate
-from app.services.user import get_current_user, get_user_by_email, create_user, create_token, authenticate_user
-from fastapi import APIRouter, Depends, HTTPException
 import fastapi.security as security
+from app.schemas.user import UserCreate, UserSchema
+from app.services.user import (
+    authenticate_user,
+    create_token,
+    create_user,
+    get_current_user,
+    get_user_by_email,
+)
+from fastapi import APIRouter, Depends, HTTPException
+
+user_router = APIRouter()
 
 
-router = APIRouter()
-
-
-@router.post("/api/users")
+@user_router.post("/api/users")
 async def user_create(user: UserCreate):
     db_user = await get_user_by_email(user.email)
 
@@ -19,7 +24,7 @@ async def user_create(user: UserCreate):
     return await create_token(user)
 
 
-@router.post("/api/token")
+@user_router.post("/api/token")
 async def generate_token(form_data: security.OAuth2PasswordRequestForm = Depends()):
     user = await authenticate_user(form_data.username, form_data.password)
 
@@ -29,6 +34,6 @@ async def generate_token(form_data: security.OAuth2PasswordRequestForm = Depends
     return await create_token(user)
 
 
-@router.get("/api/users/me", response_model=UserSchema)
+@user_router.get("/api/users/me", response_model=UserSchema)
 async def get_me(user: UserSchema = Depends(get_current_user)):
     return user
