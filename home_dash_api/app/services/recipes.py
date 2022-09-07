@@ -7,6 +7,7 @@ from app.models.recipes.recipe_ingredients import RecipeIngredient
 from app.schemas.recipes import CreateRecipe, RecipeSchema
 from app.schemas.user import UserSchema
 from tortoise.contrib.pydantic.creator import pydantic_queryset_creator
+from tortoise.query_utils import Prefetch
 
 
 async def create_recipe(recipe: CreateRecipe, user: UserSchema) -> Recipe:
@@ -115,7 +116,6 @@ async def create_recipe_transaction(recipe: CreateRecipe, user: UserSchema):
 
 
 async def get_recipes_s():
-    recipes = Recipe.all().prefetch_related("categories", "creator")
-    print(recipes)
+    recipes = Recipe.all()
     Recipe_List = pydantic_queryset_creator(Recipe)
     return await Recipe_List.from_queryset(recipes)

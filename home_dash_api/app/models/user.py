@@ -25,4 +25,4 @@ class User(models.Model):
         return hash.bcrypt.verify(password, self.password)
 
 
-UserSchema = pydantic_model_creator(User)
+UserRecipeSchema = pydantic_model_creator(User, exclude=("password", "email"))

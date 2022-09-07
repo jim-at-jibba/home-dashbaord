@@ -2,7 +2,7 @@ import datetime as dt
 from uuid import UUID
 
 from app.models.recipes.category import CategorySchema
-from app.models.user import UserSchema
+from app.models.user import UserRecipeSchema
 from pydantic import BaseModel
 
 
@@ -95,7 +95,7 @@ class CreateRecipe(RecipeBase):
 
 class RecipeSchema(RecipeBase):
     id: UUID
-    creator: UserSchema
+    creator: UserRecipeSchema
     categories: list[CategorySchema]
     created_at: dt.datetime
     updated_at: dt.datetime
