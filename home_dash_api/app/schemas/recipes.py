@@ -1,8 +1,9 @@
 import datetime as dt
 from uuid import UUID
 
-from app.schemas.user import UserSchema
-from pydantic.main import BaseModel
+from app.models.recipes.category import CategorySchema
+from app.models.user import UserSchema
+from pydantic import BaseModel
 
 
 class CategoryBase(BaseModel):
@@ -13,13 +14,13 @@ class CategoryCreate(CategoryBase):
     pass
 
 
-class CategorySchema(CategoryBase):
-    id: UUID
-    created_at: dt.datetime
-    updated_at: dt.datetime
-
-    class Config:
-        orm_mode = True
+# class CategorySchema(CategoryBase):
+#     id: UUID
+#     created_at: dt.datetime
+#     updated_at: dt.datetime
+#
+#     class Config:
+#         orm_mode = True
 
 
 class IngredientBase(BaseModel):
@@ -73,6 +74,9 @@ class MeasurementQtySchema(MeasurementBase):
     class Config:
         orm_mode = True
 
+    class PydanticMeta:
+        exclude = ("created_at", "updated_at")
+
 
 class RecipeBase(BaseModel):
     name: str
@@ -92,11 +96,15 @@ class CreateRecipe(RecipeBase):
 class RecipeSchema(RecipeBase):
     id: UUID
     creator: UserSchema
+    categories: list[CategorySchema]
     created_at: dt.datetime
     updated_at: dt.datetime
 
     class Config:
         orm_mode = True
+
+    class PydanticMeta:
+        exclude = ("created_at", "updated_at")
 
 
 class RecipeIngredientBase(BaseModel):

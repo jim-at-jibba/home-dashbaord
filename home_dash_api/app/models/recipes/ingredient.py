@@ -1,5 +1,6 @@
 from tortoise import fields, models
 
+
 class Ingredient(models.Model):
     id = fields.UUIDField(pk=True)
     ingredient_name = fields.CharField(max_length=255)
@@ -8,6 +9,9 @@ class Ingredient(models.Model):
 
     class Meta:
         table = "ingredient"
+
+    class PydanticMeta:
+        exclude = ("created_at", "updated_at")
 
     def __str__(self):
         return self.ingredient_name

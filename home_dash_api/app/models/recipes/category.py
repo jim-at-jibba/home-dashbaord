@@ -1,4 +1,5 @@
 from tortoise import fields, models
+from tortoise.contrib.pydantic import pydantic_model_creator
 
 
 class Category(models.Model):
@@ -13,5 +14,11 @@ class Category(models.Model):
     class Meta:
         table = "category"
 
+    class PydanticMeta:
+        exclude = ("created_at", "updated_at")
+
     def __str__(self):
         return self.category_name
+
+
+CategorySchema = pydantic_model_creator(Category)

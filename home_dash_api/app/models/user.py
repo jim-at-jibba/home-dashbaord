@@ -15,6 +15,9 @@ class User(models.Model):
     class Meta:
         table = "users"
 
+    class PydanticMeta:
+        exclude = ("password", "created_at", "updated_at")
+
     def __str__(self):
         return self.email
 
@@ -22,4 +25,4 @@ class User(models.Model):
         return hash.bcrypt.verify(password, self.password)
 
 
-# UserSchema = pydantic_model_creator(User)
+UserSchema = pydantic_model_creator(User)

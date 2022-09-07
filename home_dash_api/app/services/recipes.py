@@ -4,8 +4,9 @@ from app.models.recipes.measurement import Measurement
 from app.models.recipes.measurement_qty import MeasurementQty
 from app.models.recipes.recipe import Recipe
 from app.models.recipes.recipe_ingredients import RecipeIngredient
-from app.schemas.recipes import CreateRecipe
+from app.schemas.recipes import CreateRecipe, RecipeSchema
 from app.schemas.user import UserSchema
+from tortoise.contrib.pydantic.creator import pydantic_queryset_creator
 
 
 async def create_recipe(recipe: CreateRecipe, user: UserSchema) -> Recipe:
@@ -111,3 +112,10 @@ async def create_recipe_transaction(recipe: CreateRecipe, user: UserSchema):
         )
 
     return recipe
+
+
+async def get_recipes_s():
+    recipes = Recipe.all().prefetch_related("categories", "creator")
+    print(recipes)
+    Recipe_List = pydantic_queryset_creator(Recipe)
+    return await Recipe_List.from_queryset(recipes)

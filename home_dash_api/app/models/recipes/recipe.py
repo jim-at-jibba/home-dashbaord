@@ -22,5 +22,8 @@ class Recipe(models.Model):
     class Meta:
         table = "recipes"
 
+    class PydanticMeta:
+        exclude = ("created_at", "updated_at")
+
     def __str__(self):
         return self.name

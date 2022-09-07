@@ -1,5 +1,6 @@
 from tortoise import fields, models
 
+
 class Measurement(models.Model):
     id = fields.UUIDField(pk=True)
     measurement_name = fields.CharField(max_length=255)
@@ -8,6 +9,9 @@ class Measurement(models.Model):
 
     class Meta:
         table = "measurement"
+
+    class PydanticMeta:
+        exclude = ("created_at", "updated_at")
 
     def __str__(self):
         return self.measurement_name

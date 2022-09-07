@@ -22,5 +22,8 @@ class RecipeIngredient(models.Model):
     created_at = fields.DatetimeField(auto_now_add=True)
     updated_at = fields.DatetimeField(auto_now=True)
 
+    class PydanticMeta:
+        exclude = ("created_at", "updated_at")
+
     class Meta:
         table = "recipe_ingredient"
